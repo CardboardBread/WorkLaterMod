@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Source", "Source\Source.csproj", "{8FB95B8C-BE45-42BB-918C-687074B130F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93B99004-2A49-439E-BB6A-821D1F1AF7AC}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patches", "Patches", "{FA620D1F-CE25-467B-BAA7-E4754D8B150A}"
+	ProjectSection(SolutionItems) = preProject
+		Patches\DesignationCategories.xml = Patches\DesignationCategories.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Defs", "Defs", "{5D481914-9B0F-40EB-B5AD-FF4CF415896F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Languages", "Languages", "{7899C538-F641-43D7-BF13-F8FC2739F54A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{D4988EB4-8BA2-4D81-B40B-8F933531EF7D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designations", "Designations", "{8C25F089-86ED-41E8-8C62-E54E88811491}"
+	ProjectSection(SolutionItems) = preProject
+		Defs\Misc\Designations\Designations.xml = Defs\Misc\Designations\Designations.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "English", "English", "{AE4A383A-80E0-4601-8A76-449E963DCD54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Keyed", "Keyed", "{AD18CB4A-E80C-4A85-9132-C4982C606434}"
+	ProjectSection(SolutionItems) = preProject
+		Languages\English\Keyed\Keys.xml = Languages\English\Keyed\Keys.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "About", "About", "{061E4D48-E584-4628-AAD5-1A59D8B55303}"
+	ProjectSection(SolutionItems) = preProject
+		About\About.xml = About\About.xml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FB95B8C-BE45-42BB-918C-687074B130F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FB95B8C-BE45-42BB-918C-687074B130F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FB95B8C-BE45-42BB-918C-687074B130F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FB95B8C-BE45-42BB-918C-687074B130F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FA620D1F-CE25-467B-BAA7-E4754D8B150A} = {93B99004-2A49-439E-BB6A-821D1F1AF7AC}
+		{5D481914-9B0F-40EB-B5AD-FF4CF415896F} = {93B99004-2A49-439E-BB6A-821D1F1AF7AC}
+		{7899C538-F641-43D7-BF13-F8FC2739F54A} = {93B99004-2A49-439E-BB6A-821D1F1AF7AC}
+		{D4988EB4-8BA2-4D81-B40B-8F933531EF7D} = {5D481914-9B0F-40EB-B5AD-FF4CF415896F}
+		{8C25F089-86ED-41E8-8C62-E54E88811491} = {D4988EB4-8BA2-4D81-B40B-8F933531EF7D}
+		{AE4A383A-80E0-4601-8A76-449E963DCD54} = {7899C538-F641-43D7-BF13-F8FC2739F54A}
+		{AD18CB4A-E80C-4A85-9132-C4982C606434} = {AE4A383A-80E0-4601-8A76-449E963DCD54}
+		{061E4D48-E584-4628-AAD5-1A59D8B55303} = {93B99004-2A49-439E-BB6A-821D1F1AF7AC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7A7CC8E-E5AF-48C2-903C-CE4BC8389E18}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <DesignationDef>
+    <defName>SlaughterFullyGrown</defName>
+    <label>DesignatorSlaughterFullyGrown</label>
+    <description>DesignatorSlaughterFullyGrownDesc</description>
+    <texturePath>Designations/Slaughter</texturePath>
+    <targetType>Thing</targetType>
+  </DesignationDef>
+
+  <DesignationDef>
+    <defName>SlaughterWhenGrown</defName>
+    <label>DesignatorSlaughterWhenGrown</label>
+    <description>DesignatorSlaughterWhenGrownDesc</description>
+    <texturePath>Designations/Slaughter</texturePath>
+    <targetType>Thing</targetType>
+  </DesignationDef>
+
+</Defs>

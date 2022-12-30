@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <DesignatorSlaughterFullyGrown>Slaughter Fully Grown</DesignatorSlaughterFullyGrown>
+  <DesignatorSlaughterFullyGrownDesc>Mark any fully grown animal for Slaughter.</DesignatorSlaughterFullyGrownDesc>
+
+  <DesignatorSlaughterWhenGrown>Slaughter When Grown</DesignatorSlaughterWhenGrown>
+  <DesignatorSlaughterWhenGrownDesc>Mark any non-adult animal to be slaughtered when it reaches adulthood.</DesignatorSlaughterWhenGrownDesc>
+  
+  <PawnAlreadyGrown>Targeted pawn is already an adult, no waiting needed.</PawnAlreadyGrown>
+  <PawnAlreadyRegistered>Targeted pawn is already registered to wait for adulthood.</PawnAlreadyRegistered>
+  <NoTickDistanceForward>Targeted pawn is too close to adulthood.</NoTickDistanceForward>
+  <NoTickDistanceFinal>Targeted pawn is too close to adulthood.</NoTickDistanceFinal>
+  <PawnNotRegistered>Targeted pawn was not registered to wait for adulthood.</PawnNotRegistered>
+
+</LanguageData>

@@ -1,0 +1,4 @@
+While I should enforce proper access control for the fields, methods, etc of
+my classes - in order to allow easymodification later on - I make most things
+'public'. This is definitely a bad design choice, but makes future changes
+easier.
