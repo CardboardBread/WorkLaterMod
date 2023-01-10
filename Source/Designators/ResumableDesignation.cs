@@ -1,4 +1,5 @@
-﻿using HugsLib;
+﻿using CardboardBread.WorkLater.Utilities;
+using HugsLib;
 using RimWorld;
 using System;
 using Verse;
@@ -7,81 +8,52 @@ namespace CardboardBread.WorkLater.Designators
 {
     public class ResumableDesignation : Designation, IExposable
     {
-        public long initTick;
-        public long waitTicks;
-        public long finalTick;
-        public Action callback;
-
-        public Pawn pawn => target.Pawn;
-
-        public void RemoveSelf() => pawn.Map.designationManager.TryRemoveDesignationOn(pawn, def);
+        public ResumableTickDelay TickDelay;
+        public Action Callback; // public field so any modifications can be made.
 
         // Instantiation from ExposeData()
-        public ResumableDesignation()
+        public ResumableDesignation() : base()
         {
         }
 
         // Instantiation from a designator.
-        public ResumableDesignation(LocalTargetInfo target, DesignationDef def, long waitTicks, ColorDef colorDef = null) : base(target, def, colorDef)
+        public ResumableDesignation(LocalTargetInfo target, DesignationDef def, ColorDef colorDef = null, long tickDelay = 0) : base(target, def, colorDef)
         {
-            this.waitTicks = waitTicks;
-            Initialize();
-        }
-
-        public void Initialize(bool schedule = true)
-        {
-            initTick = Find.TickManager.TicksGame;
-            finalTick = initTick + waitTicks;
-            callback = () => DesignationCallback();
-            if (schedule)
-            {
-                HugsLibController.Instance.TickDelayScheduler.ScheduleCallback(callback, (int)waitTicks);
-                //Log.Message($"Scheduled callback in {waitTicks} ticks");
-            }
-        }
-
-        public void Cleanup(bool schedule = true)
-        {
-            // Set waitTicks to a value usable after save/load.
-            var currentTick = Find.TickManager.TicksGame;
-            var elapsedTicks = currentTick - initTick;
-            waitTicks = finalTick - elapsedTicks;
-            if (schedule)
-            {
-                HugsLibController.Instance.TickDelayScheduler.TryUnscheduleCallback(callback);
-                //Log.Message("Cancelled existing callback");
-            }
+            this.TickDelay = tickDelay;
+            this.Callback = DesignationCallback;
         }
 
         public new void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.Look(ref TickDelay, nameof(TickDelay));
 
-            // Before saving, update waitTicks to the remaining ticks until final.
-            if (Scribe.mode == LoadSaveMode.Saving)
+            // Remake tick delay after loading.
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                Cleanup(false);
+                StartSchedule();
             }
+        }
 
-            Scribe_Values.Look(ref waitTicks, nameof(waitTicks));
-
-            // After loading waitTicks, set proper init and final.
-            if (Scribe.mode == LoadSaveMode.LoadingVars)
-            {
-                Initialize();
-            }
+        public new void Notify_Added()
+        {
+            base.Notify_Added();
+            StartSchedule();
         }
 
         public void Notify_Removing()
         {
-            Cleanup();
+            StopSchedule();
         }
 
         public new void Delete()
         {
             base.Delete();
-            Cleanup();
+            StopSchedule();
         }
+
+        public void StartSchedule() => HugsLibController.Instance.TickDelayScheduler.ScheduleCallback(Callback, (int)TickDelay);
+        public void StopSchedule() => HugsLibController.Instance.TickDelayScheduler.TryUnscheduleCallback(Callback);
 
         public virtual void DesignationCallback()
         {

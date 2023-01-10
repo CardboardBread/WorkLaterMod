@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -83,6 +84,16 @@ namespace CardboardBread.WorkLater.Utilities
                 dict[key] = value;
             }
             return test;
+        }
+
+        public static Dictionary<K, List<V>> ToMultiDictionary<K, V>(this IEnumerable<IGrouping<K, V>> grouping)
+        {
+            var dict = new Dictionary<K, List<V>>();
+            foreach (var group in grouping)
+            {
+                dict[group.Key] = group.ToList();
+            }
+            return dict;
         }
     }
 }

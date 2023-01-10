@@ -13,6 +13,7 @@ namespace CardboardBread.WorkLater.Designators
 {
     // Similar to AllowTool's Harvest Fully Grown, places Slaughter markers on animals that are at maximum growth
     // (and therefore will give maximum butcher resources).
+    // A SlaughterFullyGrown designation def is made for compatibility's sake, but is not used.
     public class Designator_SlaughterFullyGrown : Designator
     {
         // Track every designated pawn within a Designator.DesignateMultiCell() call.
@@ -41,8 +42,8 @@ namespace CardboardBread.WorkLater.Designators
             if (thing is Pawn pawn &&
                 pawn.def.race.Animal &&
                 pawn.Faction == Faction.OfPlayer &&
-                !DesManager.HasDesignationOn(pawn, Designation) &&
-                //!DesManager.HasDesignationOn(pawn, DesignationDefOf.Slaughter) &&
+                //!DesManager.HasDesignationOn(pawn, Designation) &&
+                !DesManager.HasDesignationOn(pawn, DesignationDefOf.Slaughter) &&
                 !pawn.InAggroMentalState &&
                 pawn.ageTracker.Adult) // If targeted animal is fully grown.
             {
@@ -53,16 +54,18 @@ namespace CardboardBread.WorkLater.Designators
 
         public override void DesignateThing(Thing thing)
         {
-            if (thing is Pawn pawn)
-            {
-                // Remove ReleaseAnimalToWild or SlaughterWhenGrown designations if present.
-                DesManager.TryRemoveDesignationOn(thing, DesignationDefOf.ReleaseAnimalToWild);
-                DesManager.TryRemoveDesignationOn(thing, DesignationDefOf.Slaughter);
+            if (!(thing is Pawn pawn)) throw new ArgumentException($"Pawn-specific designation given non-pawn Thing ({thing})");
 
-                // Add designation and track designated thing.
-                DesManager.AddDesignation(new Designation(thing, DesignationDefOf.Slaughter));
-                JustDesignatedPawns.Add(pawn);
-            }
+            // Add slaughter designation and track designated thing.
+            DesManager.AddDesignation(new Designation(thing, DesignationDefOf.Slaughter));
+            JustDesignatedPawns.Add(pawn);
+
+            // Remove ReleaseAnimalToWild or SlaughterWhenGrown designations if present.
+            DesManager.TryRemoveDesignationOn(thing, DesignationDefOf.ReleaseAnimalToWild);
+            DesManager.TryRemoveDesignationOn(thing, WorkLaterDefOf.SlaughterWhenGrown);
+
+            // Own designation should not be present.
+            DesManager.TryRemoveDesignationOn(thing, Designation);
         }
 
         public override AcceptanceReport CanDesignateCell(IntVec3 cell)

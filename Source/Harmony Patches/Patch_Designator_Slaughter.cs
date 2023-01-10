@@ -17,7 +17,7 @@ namespace CardboardBread.WorkLater.Designators
         [HarmonyPatch(nameof(Designator_Slaughter.DesignateThing))]
         public static void DesignateThing_Postfix(Designator_Slaughter __instance, Thing t)
         {
-            __instance.Map.designationManager.TryRemoveDesignationOn(t, WorkLaterDefOf.SlaughterFullyGrown);
+            //__instance.Map.designationManager.TryRemoveDesignationOn(t, WorkLaterDefOf.SlaughterFullyGrown);
             __instance.Map.designationManager.TryRemoveDesignationOn(t, WorkLaterDefOf.SlaughterWhenGrown);
         }
     }

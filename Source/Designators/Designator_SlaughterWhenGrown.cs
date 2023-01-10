@@ -1,15 +1,9 @@
-﻿using CardboardBread.WorkLater.Utilities;
-using HugsLib;
-using HugsLib.Utils;
+﻿using System;
+using CardboardBread.WorkLater.Utilities;
 using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Verse;
 
 namespace CardboardBread.WorkLater.Designators
@@ -53,22 +47,20 @@ namespace CardboardBread.WorkLater.Designators
 
         public override void DesignateThing(Thing thing)
         {
-            if (thing is Pawn pawn)
-            {
-                var forwardTicks = pawn.GetTicksToAdulthood();
+            if (!(thing is Pawn pawn)) throw new ArgumentException($"Pawn-specific designation given non-pawn Thing ({thing})");
 
-                // Remove ReleaseAnimalToWild or vanilla Slaughter designations if present.
-                DesManager.TryRemoveDesignationOn(thing, DesignationDefOf.ReleaseAnimalToWild);
-                DesManager.TryRemoveDesignationOn(thing, DesignationDefOf.Slaughter);
-                DesManager.TryRemoveDesignationOn(thing, WorkLaterDefOf.SlaughterFullyGrown);
+            var forwardTicks = pawn.GetTicksToAdulthood();
+#if DEBUG
+            Log.Message($"Designating ({thing}) to be slaughtered in {forwardTicks} ticks.");
+#endif
 
-                // Add designation and track designated thing.
-                var newDes = new ResumableDesignation(thing, Designation, forwardTicks);
-                DesManager.AddDesignation(newDes);
-                JustDesignatedPawns.Add(pawn);
+            // Add designation and track designated thing.
+            DesManager.AddDesignation(new Designation_SlaughterWhenGrown(thing, Designation, tickDelay: forwardTicks));
+            JustDesignatedPawns.Add(pawn);
 
-                //Log.Message($"Designated ({thing}) to be slaughtered in {forwardTicks} ticks.");
-            }
+            // Remove ReleaseAnimalToWild or vanilla Slaughter designations if present.
+            DesManager.TryRemoveDesignationOn(thing, DesignationDefOf.ReleaseAnimalToWild);
+            DesManager.TryRemoveDesignationOn(thing, DesignationDefOf.Slaughter);
         }
 
         public override AcceptanceReport CanDesignateCell(IntVec3 cell)

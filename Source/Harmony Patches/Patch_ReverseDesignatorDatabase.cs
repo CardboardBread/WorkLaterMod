@@ -4,10 +4,11 @@ using Verse;
 namespace CardboardBread.WorkLater.Designators
 {
     // Ensure ReverseDesignatorDatabase can provide our custom designators.
-    [HarmonyPatch(typeof(ReverseDesignatorDatabase), "InitDesignators")]
+    [HarmonyPatch(typeof(ReverseDesignatorDatabase))]
     public static class Patch_ReverseDesignatorDatabase
     {
         [HarmonyPostfix]
+        [HarmonyPatch("InitDesignators")]
         public static void InitDesignators_Postfix(ReverseDesignatorDatabase __instance)
         {
             var des = __instance.AllDesignators; // This doesn't loop forever because desList is notnull at the beginning of InitDesignators()
